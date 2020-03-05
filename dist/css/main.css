@@ -1,0 +1,40 @@
+@import url("https://fonts.googleapis.com/css?family=Crimson+Text&display=swap");
+body {
+  font-family: 'Crimson Text', serif;
+  color: linear-gradient(180deg, #FFD28D 47.92%, #352000 100%); }
+
+:root {
+  --gold-color: #DBAE64;
+  --black-color: #0C0C0C;
+  --light-gold-gradient: linear-gradient(180deg, #FFD28D 47.92%, #352000 100%); }
+
+img {
+  max-width: 100%; }
+
+.main__current-feodal {
+  margin: auto; }
+
+.main__vassals {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; }
+
+.person__img {
+  border-radius: 50%; }
+
+.person_vassal {
+  max-width: 210px; }
+
+.person_feodal {
+  position: relative; }
+
+.arrow-button {
+  --size: 46px;
+  width: var(--size);
+  height: var(--size);
+  border: 1px solid var(--gold-color);
+  border-radius: 50%;
+  position: absolute;
+  top: calc(50% - var(--size) / 2); }
+  .arrow-button_forward {
+    right: 0; }
