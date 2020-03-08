@@ -7,25 +7,112 @@
 
   // GRADIENTS
   --light-gold-gradient: linear-gradient(180deg, #FFD28D 47.92%, #352000 100%);
+  --dark-gold-gradient: linear-gradient(180deg, #F4DCB3 0%, #5C3D06 100%);
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  background: url(/assets/bg.png) no-repeat center / cover;
+  color: white;
 }
 
 img {
   max-width: 100%;
+  display: block;
 }
 
-.main__current-feodal {
-  margin: auto;
-}
+.main {
+  &__current-feodal {
+    margin: auto;
+  }
 
-.main__vassals {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  &__feodal {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__vassals {
+    max-width: 786px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
 }
 
 .person {
+
+  user-select: none;
+
+  // Container for linear-gradient border
+  &__img-container {
+    border-radius: 50%;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      bottom: -2px;
+      right: -2px;
+      border-radius: 50%;
+      background: var(--light-gold-gradient);
+      z-index: -1;
+    }
+  }
+
   &__img {
     border-radius: 50%;
+  }
+
+
+  &__title,
+  &__post {
+    background-image: var(--light-gold-gradient);
+  }
+
+  &__count-vassals-container {
+    position: absolute;
+    width: 68px;
+    height: 71px;
+    left: calc(14% - 68px / 2);
+    bottom: calc(14% - 71px / 2);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &::before {
+      content: '';
+      position: absolute;
+      z-index: -1;
+
+      width: 68px;
+      height: 71px;
+      display: block;
+      background: url(/assets/bg_count.png) no-repeat center / 68px 71px;
+    }
+  }
+
+  &__count-vassals {
+    background-image: var(--dark-gold-gradient);
+    z-index: 1;
+    font-size: 29px;
+  }
+
+  &__title,
+  &__post,
+  &__count-vassals {
+    text-align: center;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 
   &_vassal {
@@ -34,6 +121,7 @@ img {
 
   &_feodal {
     position: relative;
+    max-width: 359px;
   }
 }
 
@@ -43,11 +131,19 @@ img {
   height: var(--size);
   border: 1px solid var(--gold-color);
   border-radius: 50%;
+  z-index: 1;
+  cursor: pointer;
 
   position: absolute;
   top: calc(50% - var(--size) / 2);
 
   &_forward {
-    right: 0;
+    right: calc(-60px - var(--size));
+    background: url(/assets/arrow_right.svg) no-repeat center;
+  }
+
+  &_back {
+    left: calc(-60px - var(--size));
+    background: url(/assets/arrow_left.svg) no-repeat center;
   }
 }
