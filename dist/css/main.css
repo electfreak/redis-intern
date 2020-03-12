@@ -21,20 +21,47 @@ img {
   max-width: 100%;
   display: block; }
 
-.main__current-feodal {
+button {
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer; }
+
+.main {
+  max-width: 1440px;
   margin: auto; }
-
-.main__feodal {
-  position: relative;
-  display: flex;
-  justify-content: center; }
-
-.main__vassals {
-  max-width: 786px;
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap; }
+  .main__current-feodal {
+    margin: auto; }
+  .main__feodal {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; }
+  .main__vassals {
+    max-width: 786px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap; }
+  .main__previous-button {
+    text-align: center;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-image: var(--light-gold-gradient);
+    position: relative;
+    font-size: 26px; }
+    .main__previous-button::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      background: var(--gold-color);
+      opacity: 0.2;
+      left: 0;
+      right: 0;
+      height: 1px; }
 
 .person {
   user-select: none; }
@@ -53,8 +80,6 @@ img {
       z-index: -1; }
   .person__img {
     border-radius: 50%; }
-  .person__title, .person__post {
-    background-image: var(--light-gold-gradient); }
   .person__count-vassals-container {
     position: absolute;
     width: 68px;
@@ -81,9 +106,19 @@ img {
     text-align: center;
     -webkit-background-clip: text;
     background-clip: text;
-    color: transparent; }
+    color: transparent;
+    background-image: var(--light-gold-gradient); }
+  .person_feodal .person__title {
+    font-size: 61px;
+    margin-bottom: 21px; }
+  .person_feodal .person__post {
+    font-size: 17px; }
   .person_vassal {
     max-width: 210px; }
+  .person_vassal .person__title {
+    font-size: 32px; }
+  .person_vassal .person__post {
+    font-size: 17px; }
   .person_feodal {
     position: relative;
     max-width: 359px; }

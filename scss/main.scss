@@ -1,4 +1,5 @@
 @import 'typography';
+@import 'mixin';
 
 :root {
   // COLORS
@@ -25,7 +26,19 @@ img {
   display: block;
 }
 
+button {
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+}
+
 .main {
+  max-width: 1440px;
+  margin: auto;
+
   &__current-feodal {
     margin: auto;
   }
@@ -33,7 +46,8 @@ img {
   &__feodal {
     position: relative;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: flex-start;
   }
 
   &__vassals {
@@ -42,6 +56,23 @@ img {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+  }
+
+  &__previous-button {
+    @include text;
+    position: relative;
+    font-size: 26px;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      background: var(--gold-color);
+      opacity: 0.2;
+      left: 0;
+      right: 0;
+      height: 1px;
+    }
   }
 }
 
@@ -69,12 +100,6 @@ img {
 
   &__img {
     border-radius: 50%;
-  }
-
-
-  &__title,
-  &__post {
-    background-image: var(--light-gold-gradient);
   }
 
   &__count-vassals-container {
@@ -109,14 +134,28 @@ img {
   &__title,
   &__post,
   &__count-vassals {
-    text-align: center;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    @include text;
+  }
+
+  &_feodal &__title {
+    font-size: 61px;
+    margin-bottom: 21px;
+  }
+
+  &_feodal &__post {
+    font-size: 17px;
   }
 
   &_vassal {
     max-width: 210px;
+  }
+
+  &_vassal &__title {
+    font-size: 32px;
+  }
+
+  &_vassal &__post {
+    font-size: 17px;
   }
 
   &_feodal {

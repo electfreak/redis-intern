@@ -1,28 +1,37 @@
-const gulp = require('gulp'),
-      sass = require('gulp-sass'),
-      browserSync = require('browser-sync').create();
+const { src, parallel, series, dest, watch } = require('gulp'),
+      sassCompile = require('gulp-sass'),
+      browserSync = require('browser-sync').create(),
+      browserify = require('browserify');
 
 const scss = 'scss/*.scss';
 
-gulp.task('sass', function () {
-  return gulp.src(scss)
-    .pipe(sass())
-    .pipe(gulp.dest('dist/css'))
+function sass() {
+  return src(scss)
+    .pipe(sassCompile())
+    .pipe(dest('dist/css'))
     .pipe(browserSync.stream())
-});
+};
 
-gulp.task('serve', function () {
-
+function serve(done) {
   browserSync.init({
     server: './',
   });
 
-});
+  done();
+};
 
-gulp.task('watch', function() {
-  gulp.watch(scss, gulp.parallel('sass'));
-  gulp.watch('*.js').on('change', browserSync.reload);
-  gulp.watch('*.html').on('change', browserSync.reload);
-});
 
-gulp.task('default', gulp.parallel('serve', 'sass', 'watch'));
+// function compileJs() {
+//   let b = browserify();
+//   b.add('./index.js');
+//   console.log(b);
+//   return b.bundle().pipe(dest('dist/js'));
+// }
+
+function watchFiles() {
+  watch(scss, parallel(sass));
+  watch('*.js').on('change', browserSync.reload);
+  watch('*.html').on('change', browserSync.reload);
+};
+
+exports.start = parallel(serve, series(sass, watchFiles));

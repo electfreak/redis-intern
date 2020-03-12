@@ -4,12 +4,14 @@ const stateModule = {
   state: {
     vassals: [],
     feodalId: 1,
+    previousId: 0
   },
 
   subscribers: [],
 
   mutations: {
     openFeodal: (state, id) => {
+      state.previousId = state.feodalId;
       state.feodalId = id;
     },
   },
@@ -40,20 +42,27 @@ const stateModule = {
 const feodalContainer = document.querySelector('.main__feodal'),
   vassals = document.querySelector('.main__vassals');
 
+const mainButton = document.createElement('button');
+mainButton.type = 'button';
+mainButton.textContent = 'Main';
+mainButton.addEventListener('click', () => {
+  stateModule.dispatch('openFeodal', 1);
+});
+
+const previousButton = document.createElement('button');
+previousButton.type = 'button';
+previousButton.textContent = 'Back';
+previousButton.classList.add('main__previous-button');
+previousButton.addEventListener('click', () => {
+  stateModule.dispatch('openFeodal', stateModule.state.previousId);
+});
+
 
 function render(state) {
   feodalContainer.innerHTML = '';
   vassals.innerHTML = '';
 
-  // if (state.feodalId) {
-  //   const mainButton = document.createElement('button');
-  //   mainButton.type = 'button';
-  //   mainButton.textContent = 'В начало';
-  //   mainButton.onclick = () => {
-  //     stateModule.dispatch('openFeodal', 1);
-  //   };
-  //   document.querySelector('.main').prepend(mainButton);
-  // }
+  feodalContainer.append(previousButton);
 
   // FEODAL'S RENDER
 
@@ -63,6 +72,8 @@ function render(state) {
   feodalElem.append(...createArrows(feodalObj));
 
   feodalContainer.append(feodalElem);
+  feodalContainer.append(mainButton);
+
 
   // VASSAL'S RENDER 
 
@@ -71,8 +82,6 @@ function render(state) {
 
   vassalsArr.forEach(person => {
     let personElem = createPersonVassal(person);
-    personElem.classList.add('person_vassal');
-
     vassalsElemArr.push(personElem);
   });
 
@@ -122,11 +131,13 @@ function createPerson({
 
 function createPersonFeodal(personObj) {
   const feodalElem = createPerson(personObj);
+  feodalElem.classList.add('person_feodal');
   return feodalElem;
 }
 
 function createPersonVassal(personObj) {
   const vassalElem = createPerson(personObj);
+  vassalElem.classList.add('person_vassal')
   const countVassals = vassalElem.querySelector('.person__count-vassals'),
         {id} = personObj;
   if (countVassals) {
@@ -153,14 +164,10 @@ function createArrows({
 
   let vassalsSingleLevel = data.filter(person => person.parent === parent);
 
-  console.log(vassalsSingleLevel);
-
   let index = vassalsSingleLevel.findIndex(item => item.id === id);
 
   let backId = (index === 0) ? vassalsSingleLevel[vassalsSingleLevel.length - 1].id : vassalsSingleLevel[index - 1].id;
   let forwardId = (index === vassalsSingleLevel.length - 1) ? vassalsSingleLevel[0].id : vassalsSingleLevel[index + 1].id;
-
-  console.log(backId, forwardId);
 
   back.addEventListener('click', (event) => {
     event.stopPropagation();
