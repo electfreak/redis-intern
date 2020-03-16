@@ -1,4 +1,4 @@
-import data from './input.js';
+// import data from './input.js';
 
 const stateModule = {
   state: {
@@ -43,8 +43,9 @@ const feodalContainer = document.querySelector('.main__feodal'),
   vassals = document.querySelector('.main__vassals');
 
 const mainButton = document.createElement('button');
+mainButton.innerHTML = `<img src='/assets/logo.png'></img>`;
 mainButton.type = 'button';
-mainButton.textContent = 'Main';
+mainButton.classList.add('logo', 'logo_mini', 'main__nav-btn');
 mainButton.addEventListener('click', () => {
   stateModule.dispatch('openFeodal', 1);
 });
@@ -56,24 +57,24 @@ previousButton.classList.add('main__previous-button');
 previousButton.addEventListener('click', () => {
   stateModule.dispatch('openFeodal', stateModule.state.previousId);
 });
-
+const previousButtonContainer = document.createElement('div');
+previousButtonContainer.classList.add('main__nav-btn')
+previousButtonContainer.append(previousButton);
 
 function render(state) {
   feodalContainer.innerHTML = '';
   vassals.innerHTML = '';
 
-  feodalContainer.append(previousButton);
+  feodalContainer.append(previousButtonContainer);
 
   // FEODAL'S RENDER
 
   const feodalObj = data.find(person => person.id === state.feodalId);
   const feodalElem = createPersonFeodal(feodalObj);
   feodalElem.classList.add('person_feodal');
-  feodalElem.append(...createArrows(feodalObj));
 
   feodalContainer.append(feodalElem);
   feodalContainer.append(mainButton);
-
 
   // VASSAL'S RENDER 
 
@@ -92,7 +93,8 @@ function createPerson({
   name,
   image,
   id,
-  post = false
+  post = false,
+  parent = false
 }) {
   let person = document.createElement('div');
   person.classList.add('person');
@@ -104,16 +106,14 @@ function createPerson({
 
   <h2 class='person__title'>${name}</h2>`;
 
-  // Count vassal's
-  let countVassals = 0;
-  data.forEach(item => {
-    if (item.parent === id) ++countVassals;
-  })
+  // Vassal's counter
+  let numberOfVassals;
+  if (parent) numberOfVassals = countVassals(id);
 
-  if (countVassals) {
+  if (numberOfVassals) {
     const countVassalsElem = document.createElement('div');
-    countVassalsElem.classList.add('person__count-vassals-container');
-    countVassalsElem.innerHTML = `<div class='person__count-vassals'>${countVassals}</div>`;
+    countVassalsElem.classList.add('person__vassals-counter-container');
+    countVassalsElem.innerHTML = `<div class='person__vassals-counter'>${numberOfVassals}</div>`;
 
     person.querySelector('.person__img-container').append(countVassalsElem);
   }
@@ -126,20 +126,35 @@ function createPerson({
   }
 
   return person;
+}
 
+function countVassals(id) {
+  let counter = 0;
+
+  // Recursive travelsal
+  data.forEach(person => {
+    if (person.parent === id) {
+      counter += countVassals(person.id) + 1;
+    }
+  });
+
+  return counter;
 }
 
 function createPersonFeodal(personObj) {
   const feodalElem = createPerson(personObj);
   feodalElem.classList.add('person_feodal');
+  feodalElem.querySelector('.person__img-container').append(...createArrows(personObj));
   return feodalElem;
 }
 
 function createPersonVassal(personObj) {
   const vassalElem = createPerson(personObj);
   vassalElem.classList.add('person_vassal')
-  const countVassals = vassalElem.querySelector('.person__count-vassals'),
-        {id} = personObj;
+  const countVassals = vassalElem.querySelector('.person__vassals-counter'),
+    {
+      id
+    } = personObj;
   if (countVassals) {
     vassalElem.style.cursor = 'pointer';
 
@@ -183,4 +198,4 @@ function createArrows({
 
 stateModule.subscribe(render);
 
-stateModule.commit('openFeodal', 1);
+stateModule.dispatch('openFeodal', 1);

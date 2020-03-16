@@ -31,7 +31,9 @@ button {
 
 .main {
   max-width: 1440px;
-  margin: auto; }
+  margin: auto;
+  padding-top: 68px;
+  padding-bottom: 104px; }
   .main__current-feodal {
     margin: auto; }
   .main__feodal {
@@ -39,12 +41,15 @@ button {
     display: flex;
     justify-content: space-between;
     align-items: flex-start; }
+  .main__nav-btn {
+    flex-basis: 88px; }
   .main__vassals {
-    max-width: 786px;
+    max-width: 1096px;
     margin: auto;
     display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap; }
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: space-between; }
   .main__previous-button {
     text-align: center;
     -webkit-background-clip: text;
@@ -63,11 +68,16 @@ button {
       right: 0;
       height: 1px; }
 
+.logo_mini {
+  width: 88px;
+  height: 36px; }
+
 .person {
   user-select: none; }
   .person__img-container {
     border-radius: 50%;
-    position: relative; }
+    position: relative;
+    margin: auto; }
     .person__img-container::before {
       content: '';
       position: absolute;
@@ -78,9 +88,14 @@ button {
       border-radius: 50%;
       background: var(--light-gold-gradient);
       z-index: -1; }
+  .person_vassal {
+    max-width: 210px;
+    margin-bottom: 89px; }
+    .person_vassal + .person_vassal {
+      margin-left: 30px; }
   .person__img {
     border-radius: 50%; }
-  .person__count-vassals-container {
+  .person__vassals-counter-container {
     position: absolute;
     width: 68px;
     height: 71px;
@@ -90,7 +105,7 @@ button {
     display: flex;
     align-items: center;
     justify-content: center; }
-    .person__count-vassals-container::before {
+    .person__vassals-counter-container::before {
       content: '';
       position: absolute;
       z-index: -1;
@@ -98,11 +113,24 @@ button {
       height: 71px;
       display: block;
       background: url(/assets/bg_count.png) no-repeat center/68px 71px; }
-  .person__count-vassals {
+  .person__vassals-counter {
+    text-align: center;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-image: var(--light-gold-gradient);
     background-image: var(--dark-gold-gradient);
     z-index: 1;
     font-size: 29px; }
-  .person__title, .person__post, .person__count-vassals {
+  .person__title {
+    text-align: center;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-image: var(--light-gold-gradient);
+    margin-bottom: 0.3em; }
+  .person__post {
+    margin: 0;
     text-align: center;
     -webkit-background-clip: text;
     background-clip: text;
@@ -113,15 +141,15 @@ button {
     margin-bottom: 21px; }
   .person_feodal .person__post {
     font-size: 17px; }
-  .person_vassal {
-    max-width: 210px; }
+  .person_feodal .person__img-container {
+    max-width: 359px; }
   .person_vassal .person__title {
-    font-size: 32px; }
+    font-size: 32px;
+    white-space: nowrap; }
   .person_vassal .person__post {
     font-size: 17px; }
   .person_feodal {
-    position: relative;
-    max-width: 359px; }
+    position: relative; }
 
 .arrow-button {
   --size: 46px;
@@ -139,3 +167,8 @@ button {
   .arrow-button_back {
     left: calc(-60px - var(--size));
     background: url(/assets/arrow_left.svg) no-repeat center; }
+
+.timeline {
+  margin: 70px auto 100px; }
+  .timeline img {
+    margin: auto; }

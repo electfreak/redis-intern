@@ -38,6 +38,8 @@ button {
 .main {
   max-width: 1440px;
   margin: auto;
+  padding-top: 68px;
+  padding-bottom: 104px;
 
   &__current-feodal {
     margin: auto;
@@ -50,12 +52,17 @@ button {
     align-items: flex-start;
   }
 
+  &__nav-btn {
+    flex-basis: 88px;
+  }
+
   &__vassals {
-    max-width: 786px;
+    max-width: 1096px;
     margin: auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     flex-wrap: wrap;
+    align-items: space-between;
   }
 
   &__previous-button {
@@ -76,6 +83,14 @@ button {
   }
 }
 
+.logo {
+
+  &_mini {
+    width: 88px;
+    height: 36px;
+  }
+}
+
 .person {
 
   user-select: none;
@@ -84,6 +99,7 @@ button {
   &__img-container {
     border-radius: 50%;
     position: relative;
+    margin: auto;
 
     &::before {
       content: '';
@@ -98,11 +114,20 @@ button {
     }
   }
 
+  &_vassal {
+    max-width: 210px;
+    margin-bottom: 89px;
+
+    & + & {
+      margin-left: 30px;
+    }
+  }
+
   &__img {
     border-radius: 50%;
   }
 
-  &__count-vassals-container {
+  &__vassals-counter-container{
     position: absolute;
     width: 68px;
     height: 71px;
@@ -125,15 +150,20 @@ button {
     }
   }
 
-  &__count-vassals {
+  &__vassals-counter {
+    @include text;
     background-image: var(--dark-gold-gradient);
     z-index: 1;
     font-size: 29px;
   }
 
-  &__title,
-  &__post,
-  &__count-vassals {
+  &__title {
+    @include text;
+    margin-bottom: 0.3em;
+  }
+
+  &__post {
+    margin: 0;
     @include text;
   }
 
@@ -146,12 +176,14 @@ button {
     font-size: 17px;
   }
 
-  &_vassal {
-    max-width: 210px;
+  &_feodal &__img-container {
+    max-width: 359px;
   }
+
 
   &_vassal &__title {
     font-size: 32px;
+    white-space: nowrap;
   }
 
   &_vassal &__post {
@@ -160,7 +192,6 @@ button {
 
   &_feodal {
     position: relative;
-    max-width: 359px;
   }
 }
 
@@ -184,5 +215,13 @@ button {
   &_back {
     left: calc(-60px - var(--size));
     background: url(/assets/arrow_left.svg) no-repeat center;
+  }
+}
+
+.timeline {
+  margin: 70px auto 100px;
+
+  img {
+    margin: auto;
   }
 }
