@@ -160,9 +160,6 @@ button {
   justify-content: space-between;
   align-items: flex-start; }
 
-.logo_mini {
-  width: 88px; }
-
 .arrow-button {
   --size: 46px;
   --gap: -60px;
@@ -210,15 +207,29 @@ button {
     --gap: -30px; } }
 
 @media (max-width: 600px) {
-  .main__logo-default {
-    max-width: 202px; }
+  .main {
+    padding: 29px 20px 79px; }
+    .main__logo-default {
+      max-width: 202px; }
+    .main__previous-button {
+      font-size: 17px; }
+    .main__nav-btn {
+      flex-basis: 60px; }
   .person_size_s {
-    max-width: 152px; }
+    max-width: 142px; }
+    .person_size_s .person__title {
+      font-size: 19px; }
+    .person_size_s .person__pos {
+      font-size: 12px; }
   .person_size_m {
     max-width: 196px;
-    margin-top: 50px; }
+    margin-top: 70px; }
     .person_size_m .person__title {
       font-size: 41px; }
+  .vassals {
+    margin-left: -10px; }
+    .vassals__vassal {
+      margin-left: 10px; }
   .arrow-button {
     --size: 35px;
     --gap: -15px;

@@ -20,14 +20,6 @@ function serve(done) {
   done();
 };
 
-
-// function compileJs() {
-//   let b = browserify();
-//   b.add('./index.js');
-//   console.log(b);
-//   return b.bundle().pipe(dest('dist/js'));
-// }
-
 function watchFiles() {
   watch(scss, parallel(sass));
   watch('*.js').on('change', browserSync.reload);

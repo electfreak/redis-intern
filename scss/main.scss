@@ -208,13 +208,6 @@ button {
   // &__person {}
 }
 
-.logo {
-
-  &_mini {
-    width: 88px;
-  }
-}
-
 .arrow-button {
   --size: 46px;
   --gap: -60px;
@@ -285,23 +278,48 @@ button {
 
 @media (max-width: 600px) {
   .main {
+    padding: 29px 20px 79px;
+
     &__logo-default {
       max-width: 202px;
+    }
+
+    &__previous-button {
+      font-size: 17px;
+    }
+
+    &__nav-btn {
+      flex-basis: 60px;
     }
   }
 
   .person {
     &_size_s {
-      max-width: 152px;
+      max-width: 142px;
+
+      .person__title {
+        font-size: 19px;
+      }
+
+      .person__pos {
+        font-size: 12px;
+      }
     }
 
     &_size_m {
       max-width: 196px;
-      margin-top: 50px;
+      margin-top: 70px;
 
       .person__title {
         font-size: 41px;
       }
+    }
+  }
+
+  .vassals {
+    margin-left: -10px;
+    &__vassal {
+      margin-left: 10px;
     }
   }
 

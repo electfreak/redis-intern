@@ -52,7 +52,7 @@ logoDefault.classList.add('main__logo-default');
 const mainButton = document.createElement('button');
 mainButton.append(logo.cloneNode(false));
 mainButton.type = 'button';
-mainButton.classList.add('logo', 'logo_mini', 'main__nav-btn');
+mainButton.classList.add('main__nav-btn');
 mainButton.addEventListener('click', () => {
   stateModule.dispatch('openFeodal', 0);
 });
