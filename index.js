@@ -179,14 +179,14 @@ function createPersonVassal(personObj) {
   const vassalElem = createPerson(personObj);
   vassalElem.classList.add('vassals__vassal', 'person_size_s');
 
-  if (vassalElem.dataset.vassals > 0) {
+  // if (vassalElem.dataset.vassals > 0) {
     vassalElem.style.cursor = 'pointer';
 
     vassalElem.addEventListener('click', () => {
       stateModule.dispatch('openFeodal', id);
     });
 
-  }
+  // }
 
   return vassalElem;
 }
