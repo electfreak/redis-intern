@@ -1,5 +1,4 @@
-# redis-intern
-
+# Redis intership
 ## Project setup
 ```
 npm i
