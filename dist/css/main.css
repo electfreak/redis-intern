@@ -9,6 +9,9 @@ body {
   --light-gold-gradient: linear-gradient(180deg, #FFD28D 47.92%, #352000 100%);
   --dark-gold-gradient: linear-gradient(180deg, #F4DCB3 0%, #5C3D06 100%); }
 
+* {
+  box-sizing: border-box; }
+
 html,
 body {
   min-height: 100%; }
@@ -32,32 +35,24 @@ button {
 .main {
   max-width: 1440px;
   margin: auto;
-  padding-top: 68px;
-  padding-bottom: 104px; }
+  padding: 68px 20px 104px; }
+  .main__logo-default {
+    margin: auto;
+    max-width: 380px;
+    margin-bottom: 100px; }
   .main__current-feodal {
     margin: auto; }
-  .main__feodal {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start; }
   .main__nav-btn {
     flex-basis: 88px; }
-  .main__vassals {
-    max-width: 1096px;
-    margin: auto;
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    align-items: space-between; }
   .main__previous-button {
     text-align: center;
-    -webkit-background-clip: text;
     background-clip: text;
+    -webkit-background-clip: text;
     color: transparent;
     background-image: var(--light-gold-gradient);
     position: relative;
-    font-size: 26px; }
+    font-size: 26px;
+    display: inline-block; }
     .main__previous-button::after {
       content: '';
       position: absolute;
@@ -67,12 +62,11 @@ button {
       left: 0;
       right: 0;
       height: 1px; }
-
-.logo_mini {
-  width: 88px;
-  height: 36px; }
+  .main.default .timeline {
+    display: none; }
 
 .person {
+  position: relative;
   user-select: none; }
   .person__img-container {
     border-radius: 50%;
@@ -88,13 +82,36 @@ button {
       border-radius: 50%;
       background: var(--light-gold-gradient);
       z-index: -1; }
-  .person_vassal {
-    max-width: 210px;
-    margin-bottom: 89px; }
-    .person_vassal + .person_vassal {
-      margin-left: 30px; }
   .person__img {
     border-radius: 50%; }
+  .person__title {
+    text-align: center;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-image: var(--light-gold-gradient);
+    margin-bottom: 0.3em; }
+  .person__post {
+    margin: 0;
+    text-align: center;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-image: var(--light-gold-gradient); }
+  .person_size_s {
+    max-width: 227px;
+    margin-bottom: 89px; }
+    .person_size_s .person__title {
+      font-size: 32px; }
+    .person_size_s .person__post {
+      font-size: 17px; }
+  .person_size_m .person__img-container {
+    max-width: 360px; }
+  .person_size_m .person__title {
+    font-size: 61px;
+    margin-bottom: 21px; }
+  .person_size_m .person__post {
+    font-size: 17px; }
   .person__vassals-counter-container {
     position: absolute;
     width: 68px;
@@ -115,44 +132,40 @@ button {
       background: url(/assets/bg_count.png) no-repeat center/68px 71px; }
   .person__vassals-counter {
     text-align: center;
-    -webkit-background-clip: text;
     background-clip: text;
+    -webkit-background-clip: text;
     color: transparent;
     background-image: var(--light-gold-gradient);
     background-image: var(--dark-gold-gradient);
     z-index: 1;
     font-size: 29px; }
-  .person__title {
-    text-align: center;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    background-image: var(--light-gold-gradient);
-    margin-bottom: 0.3em; }
-  .person__post {
-    margin: 0;
-    text-align: center;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    background-image: var(--light-gold-gradient); }
-  .person_feodal .person__title {
-    font-size: 61px;
-    margin-bottom: 21px; }
-  .person_feodal .person__post {
-    font-size: 17px; }
-  .person_feodal .person__img-container {
-    max-width: 359px; }
-  .person_vassal .person__title {
-    font-size: 32px;
-    white-space: nowrap; }
-  .person_vassal .person__post {
-    font-size: 17px; }
-  .person_feodal {
-    position: relative; }
+
+.vassals-wrapper {
+  max-width: 1096px;
+  margin: auto; }
+
+.vassals {
+  max-width: 1096px;
+  margin: auto;
+  margin-left: -20px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap; }
+  .vassals__vassal {
+    margin-left: 20px; }
+
+.feodal-container {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; }
+
+.logo_mini {
+  width: 88px; }
 
 .arrow-button {
   --size: 46px;
+  --gap: -60px;
   width: var(--size);
   height: var(--size);
   border: 1px solid var(--gold-color);
@@ -162,13 +175,54 @@ button {
   position: absolute;
   top: calc(50% - var(--size) / 2); }
   .arrow-button_forward {
-    right: calc(-60px - var(--size));
+    right: calc(var(--gap) - var(--size));
     background: url(/assets/arrow_right.svg) no-repeat center; }
   .arrow-button_back {
-    left: calc(-60px - var(--size));
+    left: calc(var(--gap) - var(--size));
     background: url(/assets/arrow_left.svg) no-repeat center; }
 
 .timeline {
-  margin: 70px auto 100px; }
+  margin: 70px auto 100px;
+  width: 13px;
+  height: 132px;
+  background: url("/assets/line.svg") no-repeat center/13px 131px; }
   .timeline img {
     margin: auto; }
+
+@media (max-width: 1024px) {
+  .main {
+    max-width: 893px; }
+    .main__logo-default {
+      max-width: 284px;
+      margin-bottom: 58px; }
+    .main_vassals {
+      max-width: 660px; } }
+
+@media (max-width: 768px) {
+  .main {
+    max-width: 676px; }
+    .main__logo-default {
+      max-width: 444px;
+      margin-bottom: 106px; } }
+
+@media (max-width: 620px) {
+  .arrow-button {
+    --gap: -30px; } }
+
+@media (max-width: 600px) {
+  .main__logo-default {
+    max-width: 202px; }
+  .person_size_s {
+    max-width: 152px; }
+  .person_size_m {
+    max-width: 196px;
+    margin-top: 50px; }
+    .person_size_m .person__title {
+      font-size: 41px; }
+  .arrow-button {
+    --size: 35px;
+    --gap: -15px;
+    background-size: 9px 17px; }
+  .timeline {
+    background: url("/assets/line_mini.svg") no-repeat center/13px 56px;
+    margin: 38px auto 34px; } }

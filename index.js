@@ -3,7 +3,7 @@
 const stateModule = {
   state: {
     vassals: [],
-    feodalId: 1,
+    feodalId: 0,
     previousId: 0
   },
 
@@ -34,49 +34,61 @@ const stateModule = {
     }, payload);
   },
 
-  subscribe(callback) {
-    this.subscribers.push(callback);
+  subscribe(...callbacks) {
+    this.subscribers.push(...callbacks);
   }
 };
 
-const feodalContainer = document.querySelector('.main__feodal'),
-  vassals = document.querySelector('.main__vassals');
+const feodalContainer = document.querySelector('.feodal-container'),
+  vassals = document.querySelector('.vassals');
+
+const logo = document.createElement('img');
+logo.alt = 'Logo';
+logo.src = '/assets/logo.png';
+
+const logoDefault = logo.cloneNode(false);
+logoDefault.classList.add('main__logo-default');
 
 const mainButton = document.createElement('button');
-mainButton.innerHTML = `<img src='/assets/logo.png'></img>`;
+mainButton.append(logo.cloneNode(false));
 mainButton.type = 'button';
 mainButton.classList.add('logo', 'logo_mini', 'main__nav-btn');
 mainButton.addEventListener('click', () => {
-  stateModule.dispatch('openFeodal', 1);
+  stateModule.dispatch('openFeodal', 0);
 });
 
-const previousButton = document.createElement('button');
-previousButton.type = 'button';
+const previousButton = document.createElement('div');
+// previousButton.type = 'button';
 previousButton.textContent = 'Back';
 previousButton.classList.add('main__previous-button');
 previousButton.addEventListener('click', () => {
   stateModule.dispatch('openFeodal', stateModule.state.previousId);
 });
-const previousButtonContainer = document.createElement('div');
+const previousButtonContainer = document.createElement('button');
 previousButtonContainer.classList.add('main__nav-btn')
 previousButtonContainer.append(previousButton);
+
+const timeline = document.createElement('div');
+timeline.classList.add('timeline');
+timeline.innerHTML = `<img src="/assets/line.svg" alt="">`;
 
 function render(state) {
   feodalContainer.innerHTML = '';
   vassals.innerHTML = '';
 
+  if (state.feodalId === 0) return renderDefault();
+
   feodalContainer.append(previousButtonContainer);
 
-  // FEODAL'S RENDER
+  // RENDERING FEODALS
 
   const feodalObj = data.find(person => person.id === state.feodalId);
   const feodalElem = createPersonFeodal(feodalObj);
-  feodalElem.classList.add('person_feodal');
 
   feodalContainer.append(feodalElem);
   feodalContainer.append(mainButton);
 
-  // VASSAL'S RENDER 
+  // RENDERING VASSALS
 
   const vassalsArr = data.filter(person => person.parent === state.feodalId),
     vassalsElemArr = [];
@@ -87,6 +99,18 @@ function render(state) {
   });
 
   vassalsElemArr.forEach(person => vassals.append((person)));
+}
+
+function renderDefault() {
+  
+  feodalContainer.append(logoDefault);
+
+  // RENDERING VASSALS
+  const vassalsArr = data.filter(person => !person.parent);
+  vassalsArr.forEach(personObj => {
+    let personElem = createPersonVassal(personObj);
+    vassals.append(personElem);
+  });
 }
 
 function createPerson({
@@ -104,19 +128,21 @@ function createPerson({
       <img class='person__img' src='img/${image}' alt='${name}'></img>
     </div> 
 
-  <h2 class='person__title'>${name}</h2>`;
+    <h2 class='person__title'>${name}</h2>`;
 
-  // Vassal's counter
-  let numberOfVassals;
-  if (parent) numberOfVassals = countVassals(id);
-
-  if (numberOfVassals) {
+  // Vassals counter
+  let numberOfVassals = countVassals(id);
+  
+  // Make counter only if parent exist – states haven't counter
+  if (numberOfVassals && parent) {
     const countVassalsElem = document.createElement('div');
     countVassalsElem.classList.add('person__vassals-counter-container');
     countVassalsElem.innerHTML = `<div class='person__vassals-counter'>${numberOfVassals}</div>`;
 
     person.querySelector('.person__img-container').append(countVassalsElem);
   }
+
+  person.dataset.vassals = numberOfVassals;
 
   if (post) {
     let postElem = document.createElement('h2');
@@ -143,19 +169,17 @@ function countVassals(id) {
 
 function createPersonFeodal(personObj) {
   const feodalElem = createPerson(personObj);
-  feodalElem.classList.add('person_feodal');
+  feodalElem.classList.add('person_size_m');
   feodalElem.querySelector('.person__img-container').append(...createArrows(personObj));
   return feodalElem;
 }
 
 function createPersonVassal(personObj) {
+  const {id} = personObj;
   const vassalElem = createPerson(personObj);
-  vassalElem.classList.add('person_vassal')
-  const countVassals = vassalElem.querySelector('.person__vassals-counter'),
-    {
-      id
-    } = personObj;
-  if (countVassals) {
+  vassalElem.classList.add('vassals__vassal', 'person_size_s');
+
+  if (vassalElem.dataset.vassals > 0) {
     vassalElem.style.cursor = 'pointer';
 
     vassalElem.addEventListener('click', () => {
@@ -177,12 +201,17 @@ function createArrows({
   const forward = document.createElement('div');
   forward.className = 'arrow-button arrow-button_forward';
 
+  // Persons with such parent for navigation
   let vassalsSingleLevel = data.filter(person => person.parent === parent);
 
   let index = vassalsSingleLevel.findIndex(item => item.id === id);
 
+  // Back and forward persons with such parent
   let backId = (index === 0) ? vassalsSingleLevel[vassalsSingleLevel.length - 1].id : vassalsSingleLevel[index - 1].id;
   let forwardId = (index === vassalsSingleLevel.length - 1) ? vassalsSingleLevel[0].id : vassalsSingleLevel[index + 1].id;
+
+  // For avoid "back" button looping
+  if (backId === id) return [back, forward];
 
   back.addEventListener('click', (event) => {
     event.stopPropagation();
@@ -196,6 +225,12 @@ function createArrows({
   return [back, forward];
 }
 
-stateModule.subscribe(render);
+function toggleTimeline (state) {
+  if (state.previousId === 0 || state.feodalId === 0) {
+    document.querySelector('.main').classList.toggle('default');
+  }
+}
 
-stateModule.dispatch('openFeodal', 1);
+stateModule.subscribe(render, toggleTimeline);
+
+stateModule.dispatch('openFeodal', 0);
