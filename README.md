@@ -1,19 +1,21 @@
-# Redis intership
+# Hello world docker action
 
-[Task](https://www.notion.so/814d9c016dfa4f4b887f37d6784e4a66)
+This action prints "Hello World" or "Hello" + the name of a person to greet to the log.
 
-## Project setup
-```
-npm i
-npm i -g gulp-cli (if dosen't exist)
-```
+## Inputs
 
-### Compiles and hot-reloads for development
-```
-gulp start
-```
+### `who-to-greet`
 
-### Simple server for check
-```
-npx http-server ./
-```
+**Required** The name of the person to greet. Default `"World"`.
+
+## Outputs
+
+### `time`
+
+The time we greeted you.
+
+## Example usage
+
+uses: actions/hello-world-docker-action@v1
+with:
+  who-to-greet: 'Mona the Octocat'
