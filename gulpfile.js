@@ -26,4 +26,4 @@ function watchFiles() {
   watch('*.html').on('change', browserSync.reload);
 };
 
-exports.start = parallel(serve, series(sass, watchFiles));
+exports.default = parallel(serve, series(sass, watchFiles));

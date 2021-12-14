@@ -17,7 +17,7 @@ body {
   min-height: 100%; }
 
 body {
-  background: url(/assets/bg.png) no-repeat center/cover;
+  background: url(../../assets/bg.png) no-repeat center/cover;
   color: white; }
 
 img {
