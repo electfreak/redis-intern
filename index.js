@@ -44,7 +44,7 @@ const feodalContainer = document.querySelector('.feodal-container'),
 
 const logo = document.createElement('img');
 logo.alt = 'Logo';
-logo.src = '/assets/logo.png';
+logo.src = './assets/logo.png';
 
 const logoDefault = logo.cloneNode(false);
 logoDefault.classList.add('main__logo-default');
@@ -70,7 +70,7 @@ previousButtonContainer.append(previousButton);
 
 const timeline = document.createElement('div');
 timeline.classList.add('timeline');
-timeline.innerHTML = `<img src="/assets/line.svg" alt="">`;
+timeline.innerHTML = `<img src="./assets/line.svg" alt="">`;
 
 function render(state) {
   feodalContainer.innerHTML = '';
@@ -125,7 +125,7 @@ function createPerson({
 
   person.innerHTML =
     `<div class='person__img-container'>
-      <img class='person__img' src='img/${image}' alt='${name}'></img>
+      <img class='person__img' src='./img/${image}' alt='${name}'></img>
     </div> 
 
     <h2 class='person__title'>${name}</h2>`;

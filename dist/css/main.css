@@ -17,7 +17,7 @@ body {
   min-height: 100%; }
 
 body {
-  background: url(/assets/bg.png) no-repeat center/cover;
+  background: url("../../assets/bg.png") no-repeat center/cover;
   color: white; }
 
 img {
@@ -129,7 +129,7 @@ button {
       width: 68px;
       height: 71px;
       display: block;
-      background: url(/assets/bg_count.png) no-repeat center/68px 71px; }
+      background: url(../../assets/bg_count.png) no-repeat center/68px 71px; }
   .person__vassals-counter {
     text-align: center;
     background-clip: text;
@@ -173,16 +173,16 @@ button {
   top: calc(50% - var(--size) / 2); }
   .arrow-button_forward {
     right: calc(var(--gap) - var(--size));
-    background: url(/assets/arrow_right.svg) no-repeat center; }
+    background: url(../../assets/arrow_right.svg) no-repeat center; }
   .arrow-button_back {
     left: calc(var(--gap) - var(--size));
-    background: url(/assets/arrow_left.svg) no-repeat center; }
+    background: url(../../assets/arrow_left.svg) no-repeat center; }
 
 .timeline {
   margin: 70px auto 100px;
   width: 13px;
   height: 132px;
-  background: url("/assets/line.svg") no-repeat center/13px 131px; }
+  background: url("../../assets/line.svg") no-repeat center/13px 131px; }
   .timeline img {
     margin: auto; }
 
@@ -235,5 +235,5 @@ button {
     --gap: -15px;
     background-size: 9px 17px; }
   .timeline {
-    background: url("/assets/line_mini.svg") no-repeat center/13px 56px;
+    background: url("../../assets/line_mini.svg") no-repeat center/13px 56px;
     margin: 38px auto 34px; } }
